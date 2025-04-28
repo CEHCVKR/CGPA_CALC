@@ -2,12 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CGPA Calculator</title>
+    <title>CGPA Calculator (Fixed Credits)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        * {
-            box-sizing: border-box;
-        }
+        /* same beautiful CSS styling */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #74ebd5 0%, #acb6e5 100%);
@@ -34,7 +32,7 @@
         label {
             font-weight: bold;
         }
-        input, button {
+        input, button, select {
             width: 100%;
             padding: 10px;
             margin-top: 8px;
@@ -66,29 +64,42 @@
 <body>
 
     <div class="container">
-        <h1>🎯 VVIT R20 CGPA Calculator</h1>
+        <h1>🎯 VVIT CGPA Calculator</h1>
 
-        <label for="semesters">Enter number of semesters:</label>
-        <input type="number" id="semesters" min="1" step="1">
-        <button onclick="collectData()">Submit</button>
+        <label for="semesters">Select number of completed semesters:</label>
+        <select id="semesters" onchange="collectData()">
+            <option value="">--Select--</option>
+            <option value="1">1 Semester</option>
+            <option value="2">2 Semesters</option>
+            <option value="3">3 Semesters</option>
+            <option value="4">4 Semesters</option>
+            <option value="5">5 Semesters</option>
+        </select>
 
         <form id="inputs"></form>
 
-        <button onclick="calculateCGPA()">Calculate CGPA</button>
+        <button onclick="calculateCGPA()">🚀 Calculate CGPA</button>
 
         <div id="result"></div>
     </div>
 
     <script>
+        const credits = {
+            1: 19.5,
+            2: 19.5,
+            3: 21.5,
+            4: 21.5,
+            5: 21.5
+        };
+
         function collectData() {
             var sems = document.getElementById('semesters').value;
             var container = document.getElementById('inputs');
             container.innerHTML = '';
             for (let i = 1; i <= sems; i++) {
                 container.innerHTML += `
-                    <h3>Semester ${i}</h3>
-                    <input type="number" id="sgpa_${i}" placeholder="SGPA" step="0.01" required>
-                    <input type="number" id="credits_${i}" placeholder="Credits" step="0.1" required>
+                    <h3>Semester ${i} (Credits: ${credits[i]})</h3>
+                    <input type="number" id="sgpa_${i}" placeholder="Enter SGPA" step="0.01" required>
                 `;
             }
         }
@@ -100,15 +111,13 @@
 
             for (let i = 1; i <= sems; i++) {
                 let sgpa = parseFloat(document.getElementById(`sgpa_${i}`).value);
-                let credits = parseFloat(document.getElementById(`credits_${i}`).value);
-
-                if (isNaN(sgpa) || isNaN(credits)) {
-                    alert(`Please fill all SGPA and Credits correctly for Semester ${i}`);
+                if (isNaN(sgpa)) {
+                    alert(`Please fill SGPA correctly for Semester ${i}`);
                     return;
                 }
 
-                total_weighted += sgpa * credits;
-                total_credits += credits;
+                total_weighted += sgpa * credits[i];
+                total_credits += credits[i];
             }
 
             if (total_credits === 0) {
