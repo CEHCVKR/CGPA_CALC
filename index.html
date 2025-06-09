@@ -5,7 +5,6 @@
     <title>CGPA Calculator (Fixed Credits)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        /* same beautiful CSS styling */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #74ebd5 0%, #acb6e5 100%);
@@ -74,6 +73,7 @@
             <option value="3">3 Semesters</option>
             <option value="4">4 Semesters</option>
             <option value="5">5 Semesters</option>
+            <option value="6">6 Semesters</option> <!-- Added -->
         </select>
 
         <form id="inputs"></form>
@@ -89,7 +89,8 @@
             2: 19.5,
             3: 21.5,
             4: 21.5,
-            5: 21.5
+            5: 21.5,
+            6: 21.5 // Added 6th semester
         };
 
         function collectData() {
@@ -99,7 +100,7 @@
             for (let i = 1; i <= sems; i++) {
                 container.innerHTML += `
                     <h3>Semester ${i} (Credits: ${credits[i]})</h3>
-                    <input type="number" id="sgpa_${i}" placeholder="Enter SGPA" step="0.01" required>
+                    <input type="number" id="sgpa_${i}" placeholder="Enter SGPA" step="0.01" required min="0" max="10">
                 `;
             }
         }
@@ -111,8 +112,8 @@
 
             for (let i = 1; i <= sems; i++) {
                 let sgpa = parseFloat(document.getElementById(`sgpa_${i}`).value);
-                if (isNaN(sgpa)) {
-                    alert(`Please fill SGPA correctly for Semester ${i}`);
+                if (isNaN(sgpa) || sgpa < 0 || sgpa > 10) {
+                    alert(`Please enter a valid SGPA (0–10) for Semester ${i}`);
                     return;
                 }
 
