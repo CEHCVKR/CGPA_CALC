@@ -8,7 +8,7 @@ def calculate_cgpa():
     mode = st.radio("", ("Custom Credits", "Fixed Credits (VVIT)"), horizontal=True)
 
     if mode == "Custom Credits":
-        semesters = st.number_input("Enter the number of semesters:", min_value=1, max_value=7, step=1)
+        semesters = st.number_input("Enter the number of semesters:", min_value=1, max_value=8, step=1)
         if semesters:
             sgpas = []
             credits = []
