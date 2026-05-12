@@ -11,6 +11,7 @@ SEMESTER_LABELS = {
     8: "4-2 (8th Sem)",
 }
 
+
 def calculate_cgpa():
     st.title("VVIT CGPA Calculator")
     st.caption("Vasireddy Venkatadri Institute of Technology (Autonomous)")
@@ -34,8 +35,18 @@ def calculate_cgpa():
             total_credits = 0
             with st.form(key='cgpa_form_custom'):
                 for sem in range(start_semester, semesters + 1):
-                    sgpa = st.number_input(f"Enter SGPA for Semester {SEMESTER_LABELS[sem]}:", min_value=0.0, format="%.2f", key=f"sgpa_{sem}")
-                    credit = st.number_input(f"Enter total credits for Semester {SEMESTER_LABELS[sem]}:", min_value=0.0, format="%.1f", key=f"credit_{sem}")
+                    sgpa = st.number_input(
+                        f"Enter SGPA for Semester {SEMESTER_LABELS[sem]}:",
+                        min_value=0.0,
+                        format="%.2f",
+                        key=f"sgpa_{sem}",
+                    )
+                    credit = st.number_input(
+                        f"Enter total credits for Semester {SEMESTER_LABELS[sem]}:",
+                        min_value=0.0,
+                        format="%.1f",
+                        key=f"credit_{sem}",
+                    )
                     sgpas.append(sgpa)
                     credits.append(credit)
                 submit_button = st.form_submit_button(label='Calculate CGPA')
@@ -63,7 +74,12 @@ def calculate_cgpa():
             total_credits = 0
             with st.form(key='cgpa_form_fixed'):
                 for sem in range(start_semester, semesters + 1):
-                    sgpa = st.number_input(f"Enter SGPA for Semester {SEMESTER_LABELS[sem]} (Credits: {fixed_credits[sem]}):", min_value=0.0, format="%.2f", key=f"fixed_sgpa_{sem}")
+                    sgpa = st.number_input(
+                        f"Enter SGPA for Semester {SEMESTER_LABELS[sem]} (Credits: {fixed_credits[sem]}):",
+                        min_value=0.0,
+                        format="%.2f",
+                        key=f"fixed_sgpa_{sem}",
+                    )
                     sgpas.append(sgpa)
                 submit_button = st.form_submit_button(label='Calculate CGPA')
             if submit_button:
@@ -75,6 +91,7 @@ def calculate_cgpa():
                 else:
                     cgpa = total_weighted_sgpa / total_credits
                     st.success(f"🎯 Your CGPA up to {SEMESTER_LABELS[semesters]} is: **{cgpa:.2f}**")
+
 
 if __name__ == "__main__":
     calculate_cgpa()
