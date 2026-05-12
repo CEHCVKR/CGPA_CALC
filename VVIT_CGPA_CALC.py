@@ -58,7 +58,9 @@ def calculate_cgpa():
                     st.error("Total credits cannot be zero. Please check your inputs.")
                 else:
                     cgpa = total_weighted_sgpa / total_credits
+                    percentage = (cgpa - 0.75) * 10
                     st.success(f"🎯 Your CGPA up to {SEMESTER_LABELS[semesters]} is: **{cgpa:.2f}**")
+                    st.info(f"📊 Percentage: **{percentage:.2f}%**")
     else:
         st.write("\n**Fixed Credits per Semester (VVIT):**\n\n1: 19.5, 2: 19.5, 3: 21.5, 4: 21.5, 5: 21.5, 6: 21.5, 7: 23, 8: 12")
         semesters = st.selectbox(
@@ -90,7 +92,9 @@ def calculate_cgpa():
                     st.error("Total credits cannot be zero. Please check your inputs.")
                 else:
                     cgpa = total_weighted_sgpa / total_credits
+                    percentage = (cgpa - 0.75) * 10
                     st.success(f"🎯 Your CGPA up to {SEMESTER_LABELS[semesters]} is: **{cgpa:.2f}**")
+                    st.info(f"📊 Percentage: **{percentage:.2f}%**")
 
 
 if __name__ == "__main__":

@@ -218,7 +218,8 @@
             }
 
             let cgpa = total_weighted / total_credits;
-            document.getElementById('result').innerText = `🎯 Your CGPA is: ${cgpa.toFixed(2)}`;
+            let percentage = (cgpa - 0.75) * 10;
+            document.getElementById('result').innerHTML = `🎯 Your CGPA is: ${cgpa.toFixed(2)}<br>📊 Percentage: ${percentage.toFixed(2)}%`;
         }
 
         collectData();
